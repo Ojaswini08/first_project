@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>{% block title %}Create Employee{% endblock %}</title>
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    
+{% block content %}
+{% if single_emp %}
+<h1>View/Update Employee</h1>
+{% else %}
+<h1>Create Employee</h1>
+{% endif %}
+<form method = "post" action = {% url 'create_emp' %} class="row g-3 needs-validation">
+ {% csrf_token %}
+ {% if single_emp %}
+    <div class="col-md-3">
+      <label for="validationCustom01" class="form-label">ID</label>
+      <input type="text" class="form-control" id="validationCustom01" name="id" value="{{single_emp.id}}" readonly required>
+    </div>
+{% endif %}
+
+    <div class="col-md-3">
+      <label for="validationCustom01" class="form-label">Name</label>
+      <input type="text" class="form-control" id="validationCustom01" name="nm" value="{{single_emp.name}}" required>
+    </div>
+    <div class="col-md-3">
+      <label for="validationCustom02" class="form-label">Email</label>
+      <input type="email" class="form-control" id="validationCustom02" name="em" value="{{single_emp.email}}" required>
+    </div>
+    <div class="col-md-3">
+      <label for="validationCustomUsername" class="form-label">Mobile_no</label>
+      <input type="number" class="form-control" id="validationCustom02" name="mb" value="{{single_emp.mobile_no}}" required>
+    </div>
+    <div class="col-md-3">
+        <label for="validationCustom01" class="form-label">Designation</label>
+        <input type="text" class="form-control" id="validationCustom01" name="desn" value="{{single_emp.designation}}" required>
+    </div>
+    <div class="col-md-3">
+        <label for="salaryRange" class="form-label">Salary</label>
+        <input type="range" class="form-range" min="0" max="50000" step="1000" id="salaryRange" name="sal" value="{{single_emp.salary}}" required>
+        <span id="salaryValue">0</span>
+    </div>
+    
+
+<!--
+    <div class="col-md-6">
+      <label for="validationCustom03" class="form-label">City</label>
+      <input type="text" class="form-control" id="validationCustom03" required>
+      <div class="invalid-feedback">
+        Please provide a valid city.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="validationCustom04" class="form-label">State</label>
+      <select class="form-select" id="validationCustom04" required>
+        <option selected disabled value="">Choose...</option>
+        <option>...</option>
+      </select>
+      <div class="invalid-feedback">
+        Please select a valid state.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="validationCustom05" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="validationCustom05" required>
+      <div class="invalid-feedback">
+        Please provide a valid zip.
+      </div>
+    </div>
+  -->
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+        <label class="form-check-label" for="invalidCheck">
+          Agree to terms and conditions
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      {% if single_emp %}
+      <button class="btn btn-primary" type="submit">Update</button>
+      {% else %}
+      <button class="btn btn-primary" type="submit">Submit</button>
+      {% endif %}
+
+      
+    </div>
+  </form>
+
+  <script>
+    const salaryRange = document.getElementById('salaryRange');
+    const salaryValue = document.getElementById('salaryValue');
+    salaryValue.textContent = salaryRange.value;                    //Set initial value display
+    salaryRange.addEventListener('input',function() {             //Update value display on input change
+        salaryValue.textContent= this.value;
+    });
+  </script>
+{% endblock %}
+
+</body>
+</html>

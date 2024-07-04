@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title%}Employees{% endblock%}</title>
+</head>
+<body>
+{% block content %}
+<h1>Employees List</h1>
+{% if emps %}
+<table class= "table table-striped" style="border-collapse: collapse; width:50%">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Designation</th>
+        <th>Salary</th>
+        <th>Date_Joined</th>
+        <th>Action</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for emp in emps %}
+    <tr>  
+        <td>{{emp.id}}</td>  
+        <td>{{emp.name}}</td> 
+        <td>{{emp.email}}</td> 
+        <td>{{emp.mobile_no}}</td>
+        <td>{{emp.designation}}</td> 
+        <td>{{emp.salary}}</td> 
+        <td>{{emp.date_joined}}</td> 
+
+        <td style="border: 1px solid black;padding:8px">
+            <a href="{% url 'get_emp' emp.id %}">View/Edit</a>
+        <form action "#" method="POST">
+            <a href="{% url 'delete_emp' emp.id%}">Delete</a>
+        </form></td>
+
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+No record found
+{% endif %}
+{% endblock %}
+</body>
+</html>
